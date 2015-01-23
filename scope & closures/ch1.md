@@ -1,33 +1,33 @@
-# You Don't Know JS: Scope & Closures
-# Chapter 1: What is Scope?
+# 关于JS你不知道的：作用域和闭包
+# 第一章：什么是作用域？
 
-One of the most fundamental paradigms of nearly all programming languages is the ability to store values in variables, and later retrieve or modify those values. In fact, the ability to store values and pull values out of variables is what gives a program *state*.
+基本所有程序语言一个最基本的特征是，把数据储存在变量里，并可以调用且修改数据的能力。事实上，储存和调用数据的能力，给了程序*域*的概念。
 
-Without such a concept, a program could perform some tasks, but they would be extremely limited and not terribly interesting.
+如果没有这个概念， 程序虽然可以跑一些任务， 但功能十分受限并且无趣。
 
-But the inclusion of variables into our program begets the most interesting questions we will now address: where do those variables *live*? In other words, where are they stored? And, most importantly, how does our program find them when it needs them?
+这个概念带给程序一个十分有趣的问题：变量究竟 *生活* 在哪里? 换句话说， 变量存在哪里？更重要的是，当我们想用它们的时候，我们是怎么获取它们的。
 
-These questions speak to the need for a well-defined set of rules for storing variables in some location, and for finding those variables at a later time. We'll call that set of rules: *Scope*.
+这个问题引出的问题是， 如何合理的定义一系列规则去在特定区域储存变量， 并且稍后如何获取它们， 我们把这一系列规则称之为 *作用域* （*Scope*）。
 
-But, where and how do these *Scope* rules get set?
 
-## Compiler Theory
-
+## 编译原理
+* 译者：以下段落待优化，以下保留英文段落均为待商榷段落。*
+Javascript是一种 动态的解析的程序语言，是一种编译语言，这点对你来说或许认为理所当然，或许认为有些惊讶。Javascript 不像传统的编译型语言，它 *没有* 被高级编译。
 It may be self-evident, or it may be surprising, depending on your level of interaction with various languages, but despite the fact that JavaScript falls under the general category of "dynamic" or "interpreted" languages, it is in fact a compiled language. It is *not* compiled well in advance, as are many traditionally-compiled languages, nor are the results of compilation portable among various distributed systems.
 
-But, nevertheless, the JavaScript engine performs many of the same steps, albeit in more sophisticated ways than we may commonly be aware, of any traditional language-compiler.
+但是，作为js引擎，它依然要做和传统语言编译器一样的工作，一些非常复杂的步骤，有时候远比我们想象的复杂。
 
-In traditional compiled-language process, a chunk of source code, your program, will undergo typically three steps *before* it is executed, roughly called "compilation":
+传统语言中，代码片段通常要经过三个步骤（我们称之为编译）， 在它真正被执行之前：
 
-1. **Tokenizing/Lexing:** breaking up a string of characters into meaningful (to the language) chunks, called tokens. For instance, consider the program: `var a = 2;`. This program would likely be broken up into the following tokens: `var`, `a`, `=`, `2`, and `;`. Whitespace may or may not be persisted as a token, depending on whether it's meaningful or not.
+1.**标记+词法分析 Tokenizing/Lexing:**: 把程序语言切成一段一段的片段，称之为tokens。比如，程序中的 `var a = 2;`,会被切成如下tokens：`var`, `a`, `=`, `2`, `;`。 空格有可能被切成token也有可能不被，取决于它在程序中是否有意义。
+	**注:** 标记和词法分析的区别很小并且学术化， 他们关注的点在于划词的时候是否判断它所处的位置，比如，标记相当于把`a` 划出来，而词法分析(Lexing)则需要判断这段代码究竟是自己包含全部含义还是属于其他代码片段的。
 
-    **Note:** The difference between tokenizing and lexing is subtle and academic, but it centers on whether or not these tokens are identified in a *stateless* or *stateful* way. Put simply, if the tokenizer were to invoke stateful parsing rules to figure out whether `a` should be considered a distinct token or just part of another token, *that* would be **lexing**.
+2. **解析 Parsing:** 把token流转换成树，是嵌套元素形式，符合语法结构和规则，这个树被称之为"AST" (<b>A</b>bstract <b>S</b>yntax <b>T</b>ree).
 
-2. **Parsing:** taking a stream (array) of tokens and turning it into a tree of nested elements, which collectively represent the grammatical structure of the program. This tree is called an "AST" (<b>A</b>bstract <b>S</b>yntax <b>T</b>ree).
+    `var a = 2;`的树，开始于顶层节点 `VariableDeclaration`, 包含子节点  `Identifier` (值 `a`), 另外一个子节点 `AssignmentExpression` 包含另外子节点  `NumericLiteral` (值 `2`).
+    
 
-    The tree for `var a = 2;` might start with a top-level node called `VariableDeclaration`, with a child node called `Identifier` (whose value is `a`), and another child called `AssignmentExpression` which itself has a child called `NumericLiteral` (whose value is `2`).
-
-3. **Code-Generation:** the process of taking an AST and turning it into executable code. This part varies greatly depending on the language, the platform it's targeting, etc.
+3. **代码生成 Code-Generation:** 这个过程是把AST转换成可执行代码， 这部分各程序语言和个平台之间会有极大的不同。
 
     So, rather than get mired in details, we'll just handwave and say that there's a way to take our above described AST for `var a = 2;` and turn it into a set of machine instructions to actually *create* a variable called `a` (including reserving memory, etc), and then store a value into `a`.
 
