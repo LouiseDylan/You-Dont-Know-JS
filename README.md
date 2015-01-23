@@ -1,3 +1,5 @@
+# You Don't Know JS - 中文版/zh-cn
+------------------------------------------------------
 # You Don't Know JS (book series)
 
 This is a series of books diving deep into the core mechanisms of the JavaScript language.
