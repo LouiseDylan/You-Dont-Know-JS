@@ -8,7 +8,6 @@
 * ["类型和语法"](types & grammar/README.md#you-dont-know-js-types--grammar) (in production)
 * ["异步和性能"](async & performance/README.md#you-dont-know-js-async--performance) (in editing)
 * ["ES6 & Beyond"](es6 & beyond/README.md#you-dont-know-js-es6--beyond) (in progress)
-* 
 ------------------------------------------------------
 # You Don't Know JS (book series)
 
