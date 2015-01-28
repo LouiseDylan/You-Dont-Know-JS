@@ -12,12 +12,12 @@
 
 ## 编译原理
 * 译者：以下段落待优化，以下保留英文段落均为待商榷段落。*
-Javascript是一种 动态的解析的程序语言，是一种编译语言，这点对你来说或许认为理所当然，或许认为有些惊讶。Javascript 不像传统的编译型语言，它 *没有* 被高级编译。
+Javascript虽然号称动态的解析的程序语言，但实际上也是一种需要编译的语言。Javascript 不像传统的编译型语言，它 *没有* 被高级编译。
 It may be self-evident, or it may be surprising, depending on your level of interaction with various languages, but despite the fact that JavaScript falls under the general category of "dynamic" or "interpreted" languages, it is in fact a compiled language. It is *not* compiled well in advance, as are many traditionally-compiled languages, nor are the results of compilation portable among various distributed systems.
 
 但是，作为js引擎，它依然要做和传统语言编译器一样的工作，一些非常复杂的步骤，有时候远比我们想象的复杂。
 
-传统语言中，代码片段通常要经过三个步骤（我们称之为编译）， 在它真正被执行之前：
+传统语言中，在它真正被执行之前, 代码通常要经过三个步骤（我们称之为编译）：
 
 1.**标记+词法分析 Tokenizing/Lexing:**: 把程序语言切成一段一段的片段，称之为tokens。比如，程序中的 `var a = 2;`,会被切成如下tokens：`var`, `a`, `=`, `2`, `;`。 空格有可能被切成token也有可能不被，取决于它在程序中是否有意义。
 	**注:** 标记和词法分析的区别很小并且学术化， 他们关注的点在于划词的时候是否判断它所处的位置，比如，标记相当于把`a` 划出来，而词法分析(Lexing)则需要判断这段代码究竟是自己包含全部含义还是属于其他代码片段的。
@@ -28,12 +28,11 @@ It may be self-evident, or it may be surprising, depending on your level of inte
     
 
 3. **代码生成 Code-Generation:** 这个过程是把AST转换成可执行代码， 这部分各程序语言和个平台之间会有极大的不同。
+所以，刨除细节，`var a = 2;`会被转换成机器语言，在内存中*创建*一个变量 `a`,而后把值储存其中。
 
-    So, rather than get mired in details, we'll just handwave and say that there's a way to take our above described AST for `var a = 2;` and turn it into a set of machine instructions to actually *create* a variable called `a` (including reserving memory, etc), and then store a value into `a`.
+    **注:** 代码引擎如何管理系统资源包含更多深入细节，我们只当作引擎能够创建和存储变量即可。
 
-    **Note:** The details of how the engine manages system resources are deeper than we will dig, so we'll just take it for granted that the engine is able to create and store variables as needed.
-
-The JavaScript engine is vastly more complex than *just* those three steps, as are most other language compilers. For instance, in the process of parsing and code-generation, there are certainly steps to optimize the performance of the execution, including collapsing redundant elements, etc.
+和其他语言一样，Javascript引擎还要做很多很多事情，比如在解析和代码生成的过程中，有些步骤用来优化执行性能，比如压缩冗余元素等。
 
 So, I'm painting only with broad strokes here. But I think you'll see shortly why *these* details we *do* cover, even at a high level, are relevant.
 
