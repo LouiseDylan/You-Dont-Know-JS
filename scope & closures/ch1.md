@@ -12,7 +12,7 @@
 
 ## 编译原理
 * 译者：以下段落待优化，以下保留英文段落均为待商榷段落。*
-Javascript虽然号称动态的解析的程序语言，但实际上也是一种需要编译的语言。Javascript 不像传统的编译型语言，它 *没有* 被高级编译。
+Javascript虽然号称动态的解析的程序语言，但实际上也是一种需要编译的语言。对比传统语言，它 的编译并不算非常完美，nor are the results of compilation portable among various distributed systems.
 It may be self-evident, or it may be surprising, depending on your level of interaction with various languages, but despite the fact that JavaScript falls under the general category of "dynamic" or "interpreted" languages, it is in fact a compiled language. It is *not* compiled well in advance, as are many traditionally-compiled languages, nor are the results of compilation portable among various distributed systems.
 
 但是，作为js引擎，它依然要做和传统语言编译器一样的工作，一些非常复杂的步骤，有时候远比我们想象的复杂。
