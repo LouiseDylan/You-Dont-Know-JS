@@ -33,18 +33,14 @@ It may be self-evident, or it may be surprising, depending on your level of inte
     **注:** 代码引擎如何管理系统资源包含更多深入细节，我们只当作引擎能够创建和存储变量即可。
 
 和其他语言一样，Javascript引擎还要做很多很多事情，比如在解析和代码生成的过程中，有些步骤用来优化执行性能，比如压缩冗余元素等。
+我们目前只是粗线条的看一下，但是细节对于更高层次还是有必要的。
+有一点要注意的是，JS引擎不是很奢侈，它并没有用大量时间去调校，因为js编译没有预构建（doesn't happen in a build step ahead of time）。
+javascript的编译，执行就是发生，代码和执行之间只有几微秒甚至还不到，为了保证最快的表现，JS引擎使用了各种技巧，比如JITS（缓压缩，甚至热重压缩），这些已经超过今天要谈的“域”的概念。
 
-So, I'm painting only with broad strokes here. But I think you'll see shortly why *these* details we *do* cover, even at a high level, are relevant.
+简言之，JS在执行之前需要被解析，而这个解析过程很快。
 
-For one thing, JavaScript engines don't get the luxury (like other language compilers) of having plenty of time to optimize, because JavaScript compilation doesn't happen in a build step ahead of time, as with other languages.
-
-For JavaScript, the compilation that occurs happens, in many cases, mere microseconds (or less!) before the code is executed. To ensure the fastest performance, JS engines use all kinds of tricks (like JITs, which lazy compile and even hot re-compile, etc) which are well beyond the "scope" of our discussion here.
-
-Let's just say, for simplicity's sake, that any snippet of JavaScript has to be compiled before (usually *right* before!) it's executed. So, the JS compiler will take the program `var a = 2;` and compile it *first*, and then be ready to execute it, usually right away.
-
-## Understanding Scope
-
-The way we will approach learning about scope is to think of the process in terms of a conversation. But, *who* is having the conversation?
+## 理解域
+理解域这个概念之前，我们先要了解一个概念叫做对话(conversation)。
 
 ### The Cast
 
