@@ -42,19 +42,19 @@ javascript的编译，执行就是发生，代码和执行之间只有几微秒�
 ## 理解域
 理解域这个概念之前，我们先要了解一个概念叫做对话(conversation)。
 
-### The Cast
+### 演员
 
-Let's meet the cast of characters that interact to process the program `var a = 2;`, so we understand their conversations that we'll listen in on shortly:
+我们来看下 `var a = 2;`里的演员, 以便稍后理解他们之间的对话：
 
-1. *Engine*: responsible for start-to-finish compilation and execution of our JavaScript program.
+1. *引擎Engine*: 影响JavaScript程序执行全程。
 
-2. *Compiler*: one of *Engine*'s friends; handles all the dirty work of parsing and code-generation (see previous section).
+2. *编译器Compiler*: *Engine*的好朋友; 处理所有棘手的难题，以及代码生成。
 
-3. *Scope*: another friend of *Engine*; collects and maintains a look-up list of all the declared identifiers (variables), and enforces a strict set of rules as to how these are accessible to currently executing code.
+3. *作用域Scope*: *Engine*另外一个朋友; 收集和保持所有变量声明的查找表，强制和通过严格规则来组织代码。
 
-For you to *fully understand* how JavaScript works, you need to begin to *think* like *Engine* (and friends) think, ask the questions they ask, and answer those questions the same.
+想要完全理解JavaScript的运作，你需要想引擎所想，问引擎所问，回答他们的问题。
 
-### Back & Forth
+### 向后 & 向前
 
 When you see the program `var a = 2;`, you most likely think of that as one statement. But that's not how our new friend *Engine* sees it. In fact, *Engine* sees two distinct statements, one which *Compiler* will handle during compilation, and one which *Engine* will handle during execution.
 
