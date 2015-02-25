@@ -1,19 +1,19 @@
-# You Don't Know JS: *this* & Object Prototypes
+# You Don't Know JS: *this* & 对象原型
 # Chapter 1: `this` Or That?
 
-One of the most confused mechanisms in JavaScript is the `this` keyword. It's a special identifier keyword that's automatically defined in the scope of every function, but what exactly it refers to bedevils even seasoned JavaScript developers.
+JavaScript 里最让人困惑之一是 `this` 关键字。它是一个特别关键字，它自动被定义在每个函式域里，但是它究竟指到谁连经验丰富 JavaScript 开发者也感到困惑。
 
-> Any sufficiently *advanced* technology is indistinguishable from magic. -- Arthur C. Clarke
+> 任何一种*先进*的技术看起来都像是魔法. -- Arthur C. Clarke
 
-JavaScript's `this` mechanism isn't actually *that* advanced, but developers often paraphrase that quote in their own mind by inserting "complex" or "confusing", and there's no question that without lack of clear understanding, `this` can seem downright magical in *your* confusion.
+JavaScript 的 `this` 机制其实没什么魔法，但是开发者通常把 "复杂" 和 "困惑" 挂在嘴边，如果没有清楚的认识，在你看起来 `this` 就像是个迷。
 
-**Note:** The word "this" is a terribly common pronoun in general discourse. So, it can be very difficult, especially verbally, to determine whether we are using "this" as a pronoun or using it to refer to the actual keyword identifier. For clarity, I will always use `this` to refer to the special keyword, and "this" or *this* or this otherwise.
+**注意：** "this" 这个字在一般文章中是非常常见的代名调。尤其在字里行间，它难以区别是指某个东西或是关键字。为了清楚地描述，我会使用 `this` 表示关键字，其它则用 "this" 或 *this* 表示。
 
 ## Why `this`?
 
-If the `this` mechanism is so confusing, even to seasoned JavaScript developers, one may wonder why it's even useful? Is it more trouble than it's worth? Before we jump into the *how*, we should examine the *why*.
+如果连经验丰富的 JavaScript 开发者都认为 `this` 让人困惑，那它究竟有什么用处？它弊大于利吗？在我们进入 *how* 之前，我们先来看看 *why*。
 
-Let's try to illustrate the motivation and utility of `this`:
+我们来试着举出 `this` 的目地及用途：
 
 ```js
 function identify() {
@@ -40,11 +40,11 @@ speak.call( me ); // Hello, I'm KYLE
 speak.call( you ); // Hello, I'm READER
 ```
 
-If the *how* of this snippet confuses you, don't worry! We'll get to that shortly. Just set those questions aside briefly so we can look into the *why* more clearly.
+如果这段代码的 *how* 使你困惑，别担心！我们等等会马上带到。先把这些问题摆在一旁，我们就更能清楚了解 *why*。
 
-This code snippet allows the `identify()` and `speak()` functions to be re-used against multiple *context* (`me` and `you`) objects, rather than needing a separate version of the function for each object.
+这段代碥允许 `identify()` 和 `speak()` 函式被多个*上下文*（`me` 和 `you`）对象重用，不需要在每个对象中分别创建函式。
 
-Instead of relying on `this`, you could have explicitly passed in a context object to both `identify()` and `speak()`.
+将 `this` 替换掉，你可以显示地将 context 对象传入 `identify()` 和 `speak()`。
 
 ```js
 function identify(context) {
@@ -59,8 +59,7 @@ function speak(context) {
 identify( you ); // READER
 speak( me ); // Hello, I'm KYLE
 ```
-
-However, the `this` mechanism provides a more elegant way of implicitly "passing along" an object reference, leading to cleaner API design and easier re-use.
+然而，`this` 机制提供更优雅的方法，隐式地传递一个对象的引用，这带来更简单的 API 设计及更容易重用。
 
 The more complex your usage pattern is, the more clearly you'll see that passing context around as an explicit parameter is often messier than passing around a `this` context. When we explore objects and prototypes, you will see the helpfulness of a collection of functions being able to automatically reference the proper context object.
 

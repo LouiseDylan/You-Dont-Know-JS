@@ -1,5 +1,13 @@
 # You Don't Know JS - 中文版/zh-cn
 
+这是一系列深入 JavaScript 核心机制的书。
+
+<a href="http://shop.oreilly.com/product/0636920026327.do"><img src="scope %26 closures/cover.jpg" width="75"></a>&nbsp;
+<a href="http://shop.oreilly.com/product/0636920033738.do"><img src="this %26 object prototypes/cover.jpg" width="75"></a>&nbsp;
+<span>...(敬请期待！)</span>
+
+欢迎贡獻内容，提交 PR 来增进代码、注释。订正错字也欢迎，它们也许可以被一般编辑器捕获，因此对这个仓库来说并不是如此重要。
+
 ## Titles
 
 * ["Up & Going"](up & going/README.md#you-dont-know-js-up--going) (draft complete)
